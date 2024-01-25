@@ -7,11 +7,13 @@ import base64
 from typing import TypeVar
 from models.user import User
 
+
 class BasicAuth(Auth):
     """
     implement basic auth
     """
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
         """
         return: base64 of auth header
         """
@@ -24,8 +26,9 @@ class BasicAuth(Auth):
         base64 = authorization_header.split(' ')
         return base64[1]
 
-
-    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
+    def decode_base64_authorization_header(self,
+                                           base64_authorization_header:
+                                           str) -> str:
         """
         decode base64 header string
         """
@@ -41,7 +44,9 @@ class BasicAuth(Auth):
         except Exception as e:
             return None
 
-    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
+    def extract_user_credentials(self,
+                                 decoded_base64_authorization_header:
+                                 str) -> (str, str):
         """
         get user credentials
         username(str)
@@ -56,7 +61,9 @@ class BasicAuth(Auth):
         user_info = decoded_base64_authorization_header.split(':', 1)
         return user_info[0], user_info[1]
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+    def user_object_from_credentials(self,
+                                     user_email: str, user_pwd:
+                                     str) -> TypeVar('User'):
         """
         user object
         return: user instance if in DB
@@ -82,8 +89,8 @@ class BasicAuth(Auth):
             header = seld.authorization_header(request)
             base64header = self.extract_base64_authorization_header(header)
             decodeval = self.decode_base64_authorization_header(base64header)
-            user_info = self.extract_user_credentials(decodeval)
-            user = self.user_object_from_credentials(user_info[0], user_info[1])
+            user_inf = self.extract_user_credentials(decodeval)
+            user = self.user_object_from_credentials(user_inf[0], user_inf[1])
             return user
         except Exception as e:
             return None

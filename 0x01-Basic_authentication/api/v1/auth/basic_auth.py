@@ -86,7 +86,7 @@ class BasicAuth(Auth):
         retrieve user instance for a requests
         """
         try:
-            header = seld.authorization_header(request)
+            header = self.authorization_header(request)
             base64header = self.extract_base64_authorization_header(header)
             decodeval = self.decode_base64_authorization_header(base64header)
             user_inf = self.extract_user_credentials(decodeval)
